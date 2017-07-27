@@ -9,9 +9,9 @@
 <body>
     <div id="demo"></div>
     <script id="tt" type="text/html">
-        <% for(var i=0;i<this.length;i++){%>
-            <%var item=this[i];%>
-            <% if(item.age<30){%>
+        <% for(var i=0;i<this.length;i++){
+            var item=this[i];
+            if(item.age<30){%>
                 <p>我的名字是<%=item.name%>，我的年龄是<%=item.age%></p>
             <%}else{%>
                 <p>my name is <%=item.name%>,my age is a sercet.</p>

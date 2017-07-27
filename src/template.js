@@ -20,7 +20,7 @@
 
     function setToArr(content) {
         var arr = [],                 //返回的数组，用于保存匹配结果
-            reg = /<%(?!=)(.*?)%>/g,  //用于匹配js代码的正则
+            reg = /<%(?!=)([\s\S]*?)%>/g,  //用于匹配js代码的正则
             match,   				  //当前匹配到的match
             nowIndex = 0;			  //当前匹配到的索引
 
