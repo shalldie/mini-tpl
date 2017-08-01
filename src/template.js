@@ -14,7 +14,7 @@
             }
         }
         arr.push("return r.join(' ');");
-        var func = new Function(arr.join(" "));
+        var func = new Function(arr.join("\n"));
         return func.call(data, content);
     }
 
