@@ -12,6 +12,6 @@ var info = [
         age: 55
     }
 ];
-
+var template = window['mini-tpl'];
 var result = template(info, content);
 document.getElementById("demo").innerHTML = result;
