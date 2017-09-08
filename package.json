@@ -1,0 +1,32 @@
+{
+  "name": "mini-tpl",
+  "version": "1.0.0",
+  "description": "A simple template engine.",
+  "main": "build/mini-tpl.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "start": "npm run beautify & npm run min",
+    "beautify": "uglifyjs src/mini-tpl.js -b -o build/mini-tpl.js",
+    "min": "uglifyjs src/mini-tpl.js -m -o build/mini-tpl.min.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shalldie/mini-tpl.git"
+  },
+  "keywords": [
+    "template",
+    "engine",
+    "js"
+  ],
+  "author": "shalldie",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shalldie/mini-tpl/issues"
+  },
+  "homepage": "https://github.com/shalldie/mini-tpl#readme",
+  "devDependencies": {
+    "uglify-js": "^3.0.28"
+  }
+}

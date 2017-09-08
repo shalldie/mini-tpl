@@ -1,4 +1,23 @@
-(function () {
+(function (root, factory) {
+    var name = 'mini-tpl';
+    if (typeof define === 'function' && define.amd) {
+        // AMD
+        define([name], factory);
+    } else if (typeof exports === 'object') {
+        // Node, CommonJS-like
+        module.exports = factory(require(name));
+    } else {
+        // Browser globals (root is window)
+        root[name] = factory(root[name]);
+    }
+}(this, function () {
+    /**
+     * 将数据放入模板得到渲染后的结果
+     * 
+     * @param {any} data 数据
+     * @param {string} content 模板 
+     * @returns {string} 数据在模板中执行后的结果
+     */
     function template(data, content) {
         var arr = ["var r=[];"],   //生成function字符串的数组
             codeArr = setToArr(content), //代码数组
@@ -18,6 +37,12 @@
         return func.call(data, content);
     }
 
+    /**
+     * 从字符串中获取html和代码的项
+     * 
+     * @param {string} content 
+     * @returns {Array<any>}
+     */
     function setToArr(content) {
         var arr = [],                 //返回的数组，用于保存匹配结果
             reg = /<%(?!=)([\s\S]*?)%>/g,  //用于匹配js代码的正则
@@ -45,6 +70,5 @@
         });
         return arr;
     }
-
-    window.template = template;
-})();
+    return template;
+}));
