@@ -9,7 +9,8 @@
   "scripts": {
     "start": "npm run beautify & npm run min",
     "beautify": "uglifyjs src/mini-tpl.js -b -o build/mini-tpl.js",
-    "min": "uglifyjs src/mini-tpl.js -m -o build/mini-tpl.min.js"
+    "min": "uglifyjs src/mini-tpl.js -m -o build/mini-tpl.min.js",
+    "test": "node test/node.js"
   },
   "repository": {
     "type": "git",
