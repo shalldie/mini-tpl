@@ -3,6 +3,8 @@ A simple template engine,only 50 rows.
 
 超简单的模板引擎，只有50行!
 
+[https://github.com/shalldie/mini-tpl](https://github.com/shalldie/mini-tpl)
+
 ## How to get it
 If you use npm or yarn.
 
