@@ -13,5 +13,5 @@ var info = [
     }
 ];
 var template = window['mini-tpl'];
-var result = template(info, content);
+var result = template(content, info);
 document.getElementById("demo").innerHTML = result;

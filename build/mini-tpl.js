@@ -8,7 +8,7 @@
         root[name] = factory(root[name]);
     }
 })(this, function() {
-    function template(data, content) {
+    function template(content, data) {
         var arr = [ "var r=[];" ];
         var codeArr = setToArr(content);
         var item;

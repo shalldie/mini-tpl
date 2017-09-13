@@ -15,11 +15,11 @@
     /**
      * 将数据放入模板得到渲染后的结果
      * 
-     * @param {any} data 数据
      * @param {string} content 模板 
+     * @param {any} data 数据
      * @returns {string} 数据在模板中执行后的结果
      */
-    function template(data, content) {
+    function template(content, data) {
         var arr = ["var r=[];"];   //生成function字符串的数组
         var codeArr = setToArr(content); //代码数组
         var item;

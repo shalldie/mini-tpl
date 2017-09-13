@@ -17,4 +17,4 @@ let data = [
     }
 ];
 
-console.log(tpl(data, content));
+console.log(tpl(content, data));
