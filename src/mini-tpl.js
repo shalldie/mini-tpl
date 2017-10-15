@@ -51,7 +51,7 @@
      * 从原始模板中提取 文本/js 部分
      * 
      * @param {string} content 
-     * @returns {Array<any>} 
+     * @returns {Array<{type:number,txt:string}>} 
      */
     function transform(content) {
         var arr = [];                 //返回的数组，用于保存匹配结果
@@ -78,7 +78,7 @@
     /**
      * 普通文本添加到数组，对换行部分进行转义
      * 
-     * @param {Array<any>} list 
+     * @param {Array<{type:number,txt:string}>} list 
      * @param {string} content 
      */
     function appendTxt(list, content) {
