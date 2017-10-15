@@ -26,6 +26,8 @@ In node:
 import tpl from 'mini-tpl';
 // nodejs
 // const tpl = require('../build/mini-tpl.min');
+// 加个 .default，在node环境下会有更好的代码提示支持
+// const tpl = require('../build/mini-tpl.min').default;  
 
 const content = `
 <ul>
