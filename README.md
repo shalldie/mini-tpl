@@ -25,9 +25,9 @@ In node:
 // es6 module , typescript
 import tpl from 'mini-tpl';
 // nodejs
-// const tpl = require('../build/mini-tpl.min');
+// const tpl = require('mini-tpl');
 // 加个 .default，在node环境下会有更好的代码提示支持
-// const tpl = require('../build/mini-tpl.min').default;  
+// const tpl = require('mini-tpl').default;  
 
 const content = `
 <ul>
