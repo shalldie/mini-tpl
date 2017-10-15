@@ -1,4 +1,6 @@
 # mini-tpl
+[![NPM version](https://img.shields.io/npm/v/mini-tpl.svg)](https://www.npmjs.com/package/mini-tpl)
+
 A simple template engine,only some rows.
 
 超简单的模板引擎，只有几十行。
