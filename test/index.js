@@ -1,17 +1,17 @@
-var content = document.getElementById("tt").innerHTML;
+const tpl = require('../build/mini-tpl.min');
 
-var info = [
-    {
-        name: 'tom',
-        age: 12
-    }, {
-        name: 'lily',
-        age: 24
-    }, {
-        name: 'lucy',
-        age: 55
-    }
-];
-var template = window['mini-tpl'];
-var result = template(content, info);
-document.getElementById("demo").innerHTML = result;
+const content = `
+<ul>
+<% for(var i=0;i<this.length;i++){
+    var item=this[i];
+    if(item.age<30){%>
+        <li>我的名字是<%=item.name%>，我的年龄是<%=item.age%></li>
+    <%}else{%>
+        <li>my name is <%=item.name%>,my age is a sercet.</li>
+    <%}%>
+<%}%>
+</ul>`;
+
+const data = [{ name: 'tom', age: 12 }, { name: 'lily', age: 24 }, { name: 'lucy', age: 55 }];
+
+console.log(tpl(content, data));

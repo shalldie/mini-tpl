@@ -1,7 +1,7 @@
 # mini-tpl
-A simple template engine,only 50 rows.
+A simple template engine,only some rows.
 
-超简单的模板引擎，只有50行!
+超简单的模板引擎，只有几十行。
 
 [https://github.com/shalldie/mini-tpl](https://github.com/shalldie/mini-tpl)
 
@@ -22,45 +22,68 @@ The syntax same as [ejs](https://github.com/tj/ejs).
 ## Example
 In node:
 ```js
+// es6 module , typescript
 import tpl from 'mini-tpl';
-// also: var tpl = require('mini-tpl');
+// nodejs
+// const tpl = require('../build/mini-tpl.min');
 
 const content = `
+<ul>
 <% for(var i=0;i<this.length;i++){
     var item=this[i];
     if(item.age<30){%>
-        <p>我的名字是<%=item.name%>，我的年龄是<%=item.age%></p>
+        <li>我的名字是<%=item.name%>，我的年龄是<%=item.age%></li>
     <%}else{%>
-        <p>my name is <%=item.name%>,my age is a sercet.</p>
+        <li>my name is <%=item.name%>,my age is a sercet.</li>
     <%}%>
 <%}%>
-`;
+</ul>`;
 
-const data = [
-    {
-        name: 'tom',
-        age: 12
-    }, {
-        name: 'lily',
-        age: 24
-    }, {
-        name: 'lucy',
-        age: 55
-    }
-];
+const data = [{ name: 'tom', age: 12 }, { name: 'lily', age: 24 }, { name: 'lucy', age: 55 }];
 
 console.log(tpl(content, data));
 ```
 result:
 
-    <p>我的名字是tom，我的年龄是12</p>     
+    <ul>
 
-    <p>我的名字是lily，我的年龄是24</p>     
+            <li>我的名字是tom，我的年龄是12</li>
 
-    <p>my name is lucy,my age is a sercet.</p>
 
-In browser is the same.U know it.
-在浏览器中也一样，我就不举例了。
+            <li>我的名字是lily，我的年龄是24</li>
+
+
+            <li>my name is lucy,my age is a sercet.</li>
+
+
+    </ul>
+
+In browser:
+
+```html
+<body>
+    <div id="root"></div>
+    <script id="tplContent" type="text/html">
+    <ul>
+        <% for(var i=0;i<this.length;i++){
+            var item=this[i];
+            if(item.age<30){%>
+                <li>我的名字是<%=item.name%>，我的年龄是<%=item.age%></li>
+            <%}else{%>
+                <li>my name is <%=item.name%>,my age is a sercet.</li>
+            <%}%>
+        <%}%>
+    </ul>
+    </script>
+    <script src="mini-tpl.min.js"></script>
+    <script>
+        var data = [{ name: 'tom', age: 12 }, { name: 'lily', age: 24 }, { name: 'lucy', age: 55 }];
+        var content = document.getElementById('tplContent').innerHTML;
+        var result = miniTpl(content, data);
+        document.getElementById('root').innerHTML = result;
+    </script>
+</body>
+```
 
 ## Who use it.
 **东方头条**、**携程**

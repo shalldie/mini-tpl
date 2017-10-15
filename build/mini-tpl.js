@@ -1,32 +1,35 @@
 (function(root, factory) {
-    var name = "mini-tpl";
     if (typeof define === "function" && define.amd) {
-        define([ name ], factory);
+        define(factory);
     } else if (typeof exports === "object") {
-        module.exports = factory();
+        var mo = factory();
+        mo.__esModule = true;
+        mo.default = mo;
+        module.exports = mo;
     } else {
-        root[name] = factory(root[name]);
+        root.miniTpl = factory();
     }
 })(this, function() {
-    function template(content, data) {
-        var arr = [ "var r=[];" ];
-        var codeArr = setToArr(content);
-        var item;
+    function render(content, data) {
+        data = data || {};
+        var list = [ 'var tpl = "";' ];
+        var codeArr = transform(content);
         for (var i = 0, len = codeArr.length; i < len; i++) {
-            item = codeArr[i];
-            if (!item.code) {
-                arr.push("r.push('" + item.txt.replace(/<%=(.*?)%>/g, function(g0, g1) {
-                    return "'+" + g1 + "+'";
-                }) + "');");
+            var item = codeArr[i];
+            if (!item.type) {
+                var txt = 'tpl+="' + item.txt.replace(/<%=(.*?)%>/g, function(g0, g1) {
+                    return '"+' + g1 + '+"';
+                }) + '"';
+                list.push(txt);
             } else {
-                arr.push(item.txt);
+                list.push(item.txt);
             }
         }
-        arr.push("return r.join(' ');");
-        var func = new Function(arr.join("\n"));
+        list.push("return tpl;");
+        var func = new Function(list.join("\n"));
         return func.call(data, content);
     }
-    function setToArr(content) {
+    function transform(content) {
         var arr = [];
         var reg = /<%(?!=)([\s\S]*?)%>/g;
         var match;
@@ -34,7 +37,7 @@
         while (match = reg.exec(content)) {
             appendTxt(arr, content.substring(nowIndex, match.index));
             arr.push({
-                code: 1,
+                type: 1,
                 txt: match[1]
             });
             nowIndex = match.index + match[0].length;
@@ -48,5 +51,5 @@
             txt: content
         });
     }
-    return template;
+    return render;
 });

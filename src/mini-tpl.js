@@ -1,50 +1,59 @@
-; (function (root, factory) {
-    var name = 'mini-tpl';
+(function (root, factory) {
     if (typeof define === 'function' && define.amd) {
         // AMD
-        define([name], factory);
+        define(factory);
     } else if (typeof exports === 'object') {
         // Node, CommonJS-like
-        // module.exports = factory(require(name));
-        module.exports = factory();
+        // es6 module , typescript
+        var mo = factory();
+        mo.__esModule = true;
+        mo.default = mo;
+        module.exports = mo;
     } else {
-        // Browser globals (root is window)
-        root[name] = factory(root[name]);
+        // browser
+        root.miniTpl = factory();
     }
 }(this, function () {
     /**
-     * 将数据放入模板得到渲染后的结果
+     * 模板 + 数据 =》 渲染后的字符串
      * 
-     * @param {string} content 模板 
+     * @param {string} content 模板
      * @param {any} data 数据
-     * @returns {string} 数据在模板中执行后的结果
+     * @returns 渲染后的字符串
      */
-    function template(content, data) {
-        var arr = ["var r=[];"];   //生成function字符串的数组
-        var codeArr = setToArr(content); //代码数组
-        var item;
+    function render(content, data) {
+        data = data || {};
+        var list = ['var tpl = "";'];
+        var codeArr = transform(content);  // 代码分割项数组
+
         for (var i = 0, len = codeArr.length; i < len; i++) {
-            item = codeArr[i];
-            if (!item.code) {  //如果是文本类型
-                arr.push("r.push('" + item.txt.replace(/<%=(.*?)%>/g, function (g0, g1) {
-                    return "'+" + g1 + "+'"
-                }) + "');");
-            } else {               //如果是js代码
-                arr.push(item.txt);
+            var item = codeArr[i]; // 当前分割项
+
+            // 如果是文本类型，或者js占位项
+            if (!item.type) {
+                var txt = 'tpl+="' +
+                    item.txt.replace(/<%=(.*?)%>/g, function (g0, g1) {
+                        return '"+' + g1 + '+"';
+                    }) + '"';
+                list.push(txt);
+            }
+            else {  // 如果是js代码
+                list.push(item.txt);
             }
         }
-        arr.push("return r.join(' ');");
-        var func = new Function(arr.join("\n"));
+        list.push('return tpl;');
+
+        var func = new Function(list.join('\n'));
         return func.call(data, content);
     }
 
     /**
-     * 从字符串中获取html和代码的项
+     * 从原始模板中提取 文本/js 部分
      * 
      * @param {string} content 
-     * @returns {Array<any>}
+     * @returns {Array<any>} 
      */
-    function setToArr(content) {
+    function transform(content) {
         var arr = [];                 //返回的数组，用于保存匹配结果
         var reg = /<%(?!=)([\s\S]*?)%>/g;  //用于匹配js代码的正则
         var match;   				  //当前匹配到的match
@@ -55,7 +64,7 @@
             appendTxt(arr, content.substring(nowIndex, match.index));
             //保存当前匹配项
             arr.push({
-                code: 1,  //js代码
+                type: 1,  //js代码
                 txt: match[1]  //匹配到的内容
             });
             //更新当前匹配索引
@@ -66,9 +75,15 @@
         return arr;
     }
 
+    /**
+     * 普通文本添加到数组，对换行部分进行转义
+     * 
+     * @param {Array<any>} list 
+     * @param {string} content 
+     */
     function appendTxt(list, content) {
         content = content.replace(/\r?\n/g, "\\n");
         list.push({ txt: content });
     }
-    return template;
+    return render;
 }));
