@@ -7,7 +7,7 @@
         // es6 module , typescript
         var mo = factory();
         mo.__esModule = true;
-        mo.default = mo;
+        mo['default'] = mo;
         module.exports = mo;
     } else {
         // browser

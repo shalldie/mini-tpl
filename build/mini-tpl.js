@@ -4,7 +4,7 @@
     } else if (typeof exports === "object") {
         var mo = factory();
         mo.__esModule = true;
-        mo.default = mo;
+        mo["default"] = mo;
         module.exports = mo;
     } else {
         root.miniTpl = factory();
