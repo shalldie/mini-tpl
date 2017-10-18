@@ -9,13 +9,13 @@ A simple template engine,just several rows.
 
 ## About
 
-* Small size, 0.74KB of mini-tpl.min.js
-* Support from IE6.
-* The syntax same as ejs,you will get it easy if you've written jsp or asp/asp.net .
+* Small size, **0.74KB** of mini-tpl.min.js
+* Support from **IE6**.
+* The syntax same as **ejs***,you will get it easy if you've written jsp or asp/asp.net .
 ***
-* 超小的体积，压缩后的min版本只有 0.74KB
-* IE6就能用 0_o
-* ejs 语法，如果你写过jsp、asp、webform之类的，可以直接上手
+* 超小的体积，压缩后的min版本只有 **0.74KB**
+* **IE6** 就能用 0_o
+* **ejs** 语法，如果你写过jsp、asp、webform之类的，可以直接上手
 
 ## How to get it
 If you use npm or yarn.
