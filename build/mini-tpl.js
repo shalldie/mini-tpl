@@ -26,8 +26,7 @@
             }
         }
         list.push("return tpl;");
-        var func = new Function(list.join("\n"));
-        return func.call(data, content);
+        return new Function("data", list.join("\n"))(data);
     }
     function transform(content) {
         var arr = [];
