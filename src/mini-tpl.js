@@ -29,16 +29,18 @@
         for (var i = 0, len = codeArr.length; i < len; i++) {
             var item = codeArr[i]; // 当前分割项
 
-            // 如果是文本类型，或者js占位项
-            if (!item.type) {
-                var txt = 'tpl+="' +
-                    item.txt.replace(/<%=(.*?)%>/g, function (g0, g1) {
-                        return '"+' + g1 + '+"';
-                    }) + '"';
+            if (item.type == 1) {  // js逻辑
+                list.push(item.txt);
+            }
+            else if (item.type == 2) {  // js占位
+                var txt = 'tpl+=' + item.txt + ';';
                 list.push(txt);
             }
-            else {  // 如果是js代码
-                list.push(item.txt);
+            else {  //文本
+                var txt = 'tpl+="' +
+                    item.txt.replace(/"/g, '\\"') +
+                    '";';
+                list.push(txt);
             }
         }
         list.push('return tpl;');
@@ -54,18 +56,23 @@
      */
     function transform(content) {
         var arr = [];                 //返回的数组，用于保存匹配结果
-        var reg = /<%(?!=)([\s\S]*?)%>/g;  //用于匹配js代码的正则
+        var reg = /<%([\s\S]*?)%>/g;  //用于匹配js代码的正则
         var match;   				  //当前匹配到的match
-        var nowIndex = 0;			  //当前匹配到的索引        
+        var nowIndex = 0;			  //当前匹配到的索引     
 
         while (match = reg.exec(content)) {
             // 保存当前匹配项之前的普通文本/占位
             appendTxt(arr, content.substring(nowIndex, match.index));
             //保存当前匹配项
-            arr.push({
-                type: 1,  //js代码
-                txt: match[1]  //匹配到的内容
-            });
+            var item = {
+                type: 1,      // 类型  1- js逻辑 2- js 占位 null- 文本
+                txt: match[1] // 内容
+            };
+            if (match[1].substr(0,1) == '=') {  // 如果是js占位
+                item.type = 2;
+                item.txt = item.txt.substr(1);
+            }
+            arr.push(item);
             //更新当前匹配索引
             nowIndex = match.index + match[0].length;
         }
