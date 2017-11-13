@@ -1,13 +1,14 @@
 const tpl = require('../build/mini-tpl.min');
 
 const content = `
-<ul>
-<% for(var i=0; i < data.length; i++){
+<ul id="idid" name='namename'>
+<% for(var i=0; i<data.length; i++){
+    var word = "fdaf";
     var item = data[i];
     if(item.age < 30){%>
-        <li>我的名字是<%=item.name%>，我的年龄是<%=item.age%></li>
+        <li data-age="<%=item.age%>">我的名字是<%=item.name%>，我的年龄是<%=item.age%></li>
     <%}else{%>
-        <li>my name is <%=item.name%>,my age is a sercet.</li>
+        <li data-name="<%=item.name%>">my name is <%=item.name%>,my age is a sercet.</li>
     <%}%>
 <% } %>
 </ul>`;
